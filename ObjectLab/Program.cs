@@ -21,17 +21,17 @@
                 switch (userChoise)
                 {
                     case "1":
-                        if (HasRoomBeenCreated(room))
+                        if (!HasRoomBeenCreated(room))
                             CreateRoom();
                         else
                             Console.WriteLine("You already created one");
-                            break;
+                        break;
                     case "2":
                         if (HasRoomBeenCreated(room))
                             hotel.AddRoom(room);
                         else
                             Console.WriteLine("First, create a room");
-                            break;
+                        break;
                     case "3":
                         hotel.MakeReservation(room.Id);
                         break;
@@ -55,13 +55,19 @@
         public static double GetAndValidateRoomPrice(out double price)
         {
             Console.Write("Enter room price : ");
-            double.TryParse(Console.ReadLine(), out price);
-            return price;
+            while (!double.TryParse(Console.ReadLine(), out price))
+            {
+                Console.WriteLine("Enter room price correctly! : ");
+            }
+                return price;
         }
         public static int GetAndValidatePersonCapacity(out int capacity)
         {
             Console.Write("Enter person capacity : ");
-            int.TryParse(Console.ReadLine(), out capacity);
+            while (!int.TryParse(Console.ReadLine(), out capacity))
+            {
+                Console.WriteLine("Enter person capacity correctly : ");
+            }
             return capacity;
         }
 
