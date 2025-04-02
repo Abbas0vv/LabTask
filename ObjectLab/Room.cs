@@ -18,10 +18,6 @@ namespace ObjectLab
             IsAviable = true;
             _id++;
         }
-        public Room()
-        {
-            
-        }
 
         static int _id;
         public int Id { get; }

@@ -13,6 +13,7 @@
                 Console.WriteLine("1. Create a room");
                 Console.WriteLine("2. Add room");
                 Console.WriteLine("3. Make reserve");
+                Console.WriteLine("4. Show Info");
                 Console.WriteLine("0. Exit");
                 Console.WriteLine();
 
@@ -21,12 +22,12 @@
                 switch (userChoise)
                 {
                     case "1":
-                        if (!HasRoomBeenCreated(room))
-                            CreateRoom();
-                        else
-                            Console.WriteLine("You already created one");
+                            Room newRoom = CreateRoom();
+                            room = newRoom;
+                        goto Add;
                         break;
                     case "2":
+                        Add:
                         if (HasRoomBeenCreated(room))
                             hotel.AddRoom(room);
                         else
@@ -34,6 +35,9 @@
                         break;
                     case "3":
                         hotel.MakeReservation(room.Id);
+                        break;
+                    case "4":
+                        Console.WriteLine(room.ShowInfo());
                         break;
                     case "0":
                         return;
