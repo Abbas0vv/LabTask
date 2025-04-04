@@ -4,106 +4,61 @@
     {
         static void Main(string[] args)
         {
-            Hotel hotel = CreateHotel();
-            Room room = CreateRoom();
-
-            while (true)
+            Console.WriteLine("Which currency do you want? USD = 0/EUR = 1/RUB = 2/TRY = 3");
+            int usersCurrencyChoise = 0;
+            while (!int.TryParse(Console.ReadLine(), out usersCurrencyChoise))
             {
-                Console.WriteLine();
-                Console.WriteLine("1. Create a room");
-                Console.WriteLine("2. Add room");
-                Console.WriteLine("3. Make reserve");
-                Console.WriteLine("4. Show Info");
-                Console.WriteLine("0. Exit");
-                Console.WriteLine();
-
-                string userChoise = Console.ReadLine();
-
-                switch (userChoise)
-                {
-                    case "1":
-                            Room newRoom = CreateRoom();
-                            room = newRoom;
-                        goto Add;
-                        break;
-                    case "2":
-                        Add:
-                        if (HasRoomBeenCreated(room))
-                            hotel.AddRoom(room);
-                        else
-                            Console.WriteLine("First, create a room");
-                        break;
-                    case "3":
-                        hotel.MakeReservation(room.Id);
-                        break;
-                    case "4":
-                        Console.WriteLine(room.ShowInfo());
-                        break;
-                    case "0":
-                        return;
-                    default:
-                        break;
-                }
-
-
+                Console.WriteLine("Enter correct choise! 0/1/2/3");
             }
-        }
-
-        public static string GetAndValidateRoomName(out string roomName)
-        {
-            Console.Write("Enter room name : ");
-            roomName = Console.ReadLine();
-            return roomName;
-        }
-
-        public static double GetAndValidateRoomPrice(out double price)
-        {
-            Console.Write("Enter room price : ");
-            while (!double.TryParse(Console.ReadLine(), out price))
-            {
-                Console.WriteLine("Enter room price correctly! : ");
-            }
-                return price;
-        }
-        public static int GetAndValidatePersonCapacity(out int capacity)
-        {
-            Console.Write("Enter person capacity : ");
-            while (!int.TryParse(Console.ReadLine(), out capacity))
-            {
-                Console.WriteLine("Enter person capacity correctly : ");
-            }
-            return capacity;
-        }
-
-        public static Room CreateRoom()
-        {
-            string roomName;
-            double roomPrice;
-            int personCapacity;
-
-            GetAndValidateRoomName(out roomName);
-            GetAndValidateRoomPrice(out roomPrice);
-            GetAndValidatePersonCapacity(out personCapacity);
-
-            Room room = new Room(roomName, roomPrice, personCapacity);
-
             Console.WriteLine();
-            Console.WriteLine("Room created");
 
-            return room;
-        }
-        public static Hotel CreateHotel()
-        {
-            Console.Write("Enter Hotel name : ");
-            string hotelName = Console.ReadLine();
-            Hotel hotel = new Hotel(hotelName);
+            Console.WriteLine("Enter AZN value : ");
+            double valueForCurrencyTransfer = 0;
+            while (!double.TryParse(Console.ReadLine(), out valueForCurrencyTransfer))
+            {
+                Console.WriteLine("Write correctly/Something went wrong.");
+            }
             Console.WriteLine();
-            return hotel;
-        }
 
-        public static bool HasRoomBeenCreated(Room room)
+
+            switch (usersCurrencyChoise)
+            {
+                case (int)Currency.USD:
+                    CalculateCurrency(Currency.USD, valueForCurrencyTransfer);
+                    break;
+                case (int)Currency.RUB:
+                    CalculateCurrency(Currency.RUB, valueForCurrencyTransfer);
+                    break;
+                case (int)Currency.EUR:
+                    CalculateCurrency(Currency.EUR, valueForCurrencyTransfer);
+                    break;
+                case (int)Currency.TRY:
+                    CalculateCurrency(Currency.TRY, valueForCurrencyTransfer);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        public static void CalculateCurrency(Currency currency, double azn)
         {
-            return room != null;
+            switch (currency)
+            {
+                case Currency.EUR:
+                    Console.WriteLine($"{azn / 2}");
+                    break;
+                case Currency.USD:
+                    Console.WriteLine($"{azn / 1.7}");
+                    break;
+                case Currency.RUB:
+                    Console.WriteLine($"{azn / 0.02}");
+                    break;
+                case Currency.TRY:
+                    Console.WriteLine($"{azn / 0.05}");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
