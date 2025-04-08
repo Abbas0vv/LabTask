@@ -22,6 +22,7 @@ namespace ObjectLab.Models
         {
             Array.Resize(ref Books, Books.Length + 1);
             Books[^1] = book;
+            Console.WriteLine($"{book.Name} added successfully!");
         }
         public Book GetBookById(int id)
         {
@@ -34,7 +35,6 @@ namespace ObjectLab.Models
         }
         public void RemoveBookById(int id)
         {
-
             for (int i = 0; i < Books.Length; i++)
             {
                 if (Books[i].Id == id)
@@ -43,9 +43,9 @@ namespace ObjectLab.Models
                     Books[Books.Length - 1] = Books[i];
                     Books[i] = lastBook;
                     Array.Resize(ref Books, Books.Length - 1);
+                    Console.WriteLine($"{Books[i].Name} removed!");
                 }
             }
-
         }
         public Book[] GetBook(string name)
         {
@@ -73,7 +73,10 @@ namespace ObjectLab.Models
             for (int i = 0; i < Books.Length; i++)
             {
                 if (Books[i].Id == id)
+                {
                     Books[i] = userBook;
+                    Console.WriteLine($"{Books[i].Name} was updated by {userBook}");
+                }
             }
         }
     }
