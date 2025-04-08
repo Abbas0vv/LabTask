@@ -1,43 +1,86 @@
-﻿namespace ObjectLab
+﻿using ObjectLab.Models;
+
+namespace ObjectLab
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter your Full Name : ");
-            string fullName = Console.ReadLine();
+            Library library = MakeNewLibrary();
+            Book book = MakeNewBook();
 
-            while (!Helper.CheckFullName(fullName))
+            while (true)
             {
-                Console.WriteLine("Enter your name correctly");
-                Console.Write("Enter your Full Name : ");
-                fullName = Console.ReadLine();
+                Console.WriteLine("1.Add Book");
+                Console.WriteLine("2.Get book by Id");
+                Console.WriteLine("3.Remove book");
+                Console.WriteLine("4.Update book");
+                Console.WriteLine("5.Get all books");
+                Console.WriteLine("0.Quit");
+                Console.WriteLine();
+                string userChoise = Console.ReadLine();
+
+                switch (userChoise)
+                {
+                    case "1":
+                        library.AddBook(MakeNewBook());
+                        break;
+                    case "2":
+                        library.GetBookById(GetAndValidateId());
+                        break;
+                    case "3":
+                        library.RemoveBookById(GetAndValidateId());
+                        break;
+                    case "4":
+                        library.Update(GetAndValidateId(), MakeNewBook());
+                        break;
+                    case "5":
+                        library.GetAllBooks();
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        break;
+                }
+
             }
-            Console.WriteLine();
-            
-            Console.Write("Enter your age : ");
-            byte age = 0;
-            while (!byte.TryParse(Console.ReadLine(), out age))
+        }
+        public static Book MakeNewBook()
+        {
+            Console.WriteLine("Make Book : ");
+            Console.Write("Enter book's name : ");
+            string bookName = Console.ReadLine();
+            Console.WriteLine("Enter author's name : ");
+            string authorName = Console.ReadLine();
+            Console.WriteLine("Enter book's price");
+            decimal price = 0;
+            while (!decimal.TryParse(Console.ReadLine(), out price))
             {
-                Console.WriteLine("Enter your age correctly!");
-                Console.Write("Enter your age : ");
+                Console.WriteLine("Enter correct price!");
+                Console.WriteLine("Enter book's price");
             }
-            Console.WriteLine();
-
-            Console.Write("Enter your Group Number : ");
-            string groupNumber = Console.ReadLine();
-            while (!Helper.CheckGroupNo(groupNumber))
+            Book book = new Book(bookName, authorName, price);
+            Console.Clear();
+            return book;
+        }
+        public static Library MakeNewLibrary()
+        {
+            Console.WriteLine("Make Library : ");
+            Console.Write("Enter library name : ");
+            string libraryName = Console.ReadLine();
+            Library library = new Library(libraryName);
+            Console.Clear();
+            return library;
+        }
+        public static int GetAndValidateId()
+        {
+            int id = 0;
+            Console.Write("Enter Id : ");
+            while (!int.TryParse(Console.ReadLine(), out id))
             {
-                Console.WriteLine("Enter your Group Number correctly!");
-                Console.Write("Enter your Group Number : ");
-                groupNumber = Console.ReadLine();
+                Console.WriteLine("Enter Id Correctly!");
             }
-            Console.WriteLine();
-
-            Student student = new Student(fullName, groupNumber, age);
-            Console.WriteLine("Student added");
-
-            student.ShowInfo();
+            return id;
         }
     }
 }
