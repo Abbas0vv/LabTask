@@ -8,6 +8,7 @@ namespace ObjectLab
         {
             Library library = MakeNewLibrary();
             Book book = MakeNewBook();
+            library.AddBook(MakeNewBook());
 
             while (true)
             {
