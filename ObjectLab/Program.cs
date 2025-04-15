@@ -8,14 +8,14 @@ namespace ObjectLab
     {
         static void Main(string[] args)
         {
-            MainMenu();
-        }
-        public static void MainMenu()
-        {
             Console.Write("Enter hotel name ");
             string hotelName = Console.ReadLine();
             Hotel hotel = new Hotel(hotelName);
 
+            MainMenu(hotel);
+        }
+        public static void MainMenu(Hotel hotel)
+        {
             switch (GetAndValidateUserChoiseForMainMenu())
             {
                 case 0:
@@ -41,6 +41,7 @@ namespace ObjectLab
         }
         public static int GetAndValidateUserChoiseForSubMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("Create Room press => 1");
             Console.WriteLine("View roooms press => 2");
             Console.WriteLine("Reserve room press => 3");
@@ -88,6 +89,7 @@ namespace ObjectLab
                         hotelRoom = room;
                         break;
                     case 2:
+                        Console.WriteLine();
                         foreach (Room item in hotel.GetAll())
                             Console.WriteLine(item.ShowInfo());
                         Console.WriteLine();
@@ -118,10 +120,9 @@ namespace ObjectLab
                             Console.WriteLine(ex.Message);
                         }
                         Console.WriteLine();
-                        Console.WriteLine("Room reserved");
                         break;
                     case 4:
-                        MainMenu();
+                        MainMenu(hotel);
                         break;
                     case 0:
                         return;

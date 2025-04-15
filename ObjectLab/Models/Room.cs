@@ -31,7 +31,7 @@ namespace ObjectLab.Models
         }
         public string ShowInfo()
         {
-            return $"{Id}. {Name} = name, {Price} = price";
+            return $"{Id}. Name = {Name}, Price = {Price}, IsAviable = {IsAviable}, PersonCapacity = {PersonCapacity}";
         }
     }
 }

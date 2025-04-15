@@ -53,12 +53,14 @@ namespace ObjectLab.Models
                 if (room.Id == id && room.PersonCapacity >= countOfCostumers)
                 {
                     if (room.IsAviable)
+                    {
                         room.IsAviable = false;
+                        Console.WriteLine("Room reserved");
+                        break;
+                    }
                     else
                         throw new NotAvailableException();
                 }
-                else
-                    throw new SomethingWentWrongException();
             }
 
         }
